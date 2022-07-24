@@ -1,0 +1,110 @@
+
+THIS COVERED SASS VARIABLES AND NESTING
+
+<nav>
+  <ul class="navigation">
+    <li><a href="#">About us</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  
+  <div class="buttons">
+    <a class="btn-main" href="#">Sign up</a>
+    <a class="btn-hot" href="#"> Get a quote</a>
+  </div>
+  
+</nav>
+
+scss
+*{
+  margin: 0;
+  padding 0;
+}
+
+$color-primary:#f9ed69; // yellow coloe
+$color-secondary: #f08a5d; //orange
+$color-tertiary: #b83b5e; // pink
+$color-text-dark: #333;
+$color-text-light: #eee;
+  
+  
+$width-button: 150px;
+
+@mixin clearfix{
+  &::after{
+    content:"";
+    clear: both;
+    display: table // this is a clearfix function used to solve element floating out the background which can also be solve by giving a clear fix class to the nav by wrting out the code but the clearfix is now nested into in scss  
+  }
+}
+ 
+@mixin style-link-text ($col){
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $col; // note that uisng mixin with variaety of color declations, we have to define a color arguement with the $col in the name so that the value can now now be declared differently in the any part we are includung the mixin 
+}
+
+@function divide($a, $b){
+  return($a/$b); // this is just a declaration of value for function which can be used in our code by just inserting the name for the element we are declaring for.
+}
+
+
+nav{
+  margin: divide(60/2) *1px; //30px;
+  background-color: $color-primary;
+  
+  @include clearfix;
+}
+
+ .navigation{
+   list-style:none;
+   float:left;
+   
+   li{
+    display: inline-block;
+   margin-left: 30px;
+   
+   &:fisrt-child{
+   margin: 0;
+   }
+ 
+  a:link {
+    @include style-link-text($color-text-dark)
+    }   
+   }
+}
+
+.buttons{
+  float: right;
+}
+
+%btn-placeholder{
+  padding: 10px;
+  display: inline-block;
+  text-align: centre;
+  border-radius; 100px;
+  width:$width-button;
+  @include style-link-text ($color-text-light);
+}
+
+.btn-main{
+  &:link{
+    @extend %btn-placeholder;
+    background-color: $color-secondary;
+  }
+  &:hover{
+    background-tertiary: darken($color-secondary 15%);
+  }
+}
+
+.btn-hot{
+  &:link{
+    @extend %btn-placeholder;
+    background-tertiary: $color-tertiary;
+  }
+  &:hover{
+     background-tertiary: lighten($color-tertiary 10%);
+  }
+
+ MIXINS, EXTENDS AND FUNCTION
+ 

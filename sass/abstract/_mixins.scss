@@ -1,0 +1,43 @@
+@mixin clearfix {
+    &::after{
+        content: "";
+        clear: both;
+        display: table;
+    }       
+}
+
+@mixin absCenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600PX: PHIONE
+600PX - 900PX: TAB PORTRAIT
+900PX-1200PX: TABLET LANDSCAPE
+[1200PX-1800]: 
+1800 ABOVE: BIG DESKTOP
+
+16px = 1em
+*/
+
+// $BREAKPOINT REQUIREMENT
+
+@mixin respond($breakpoint){
+    @if $breakpoint == phone {
+     @media (max-width: 37.5em){@content};   //600px/16px
+    }
+    @if $breakpoint == tab-port {
+     @media (max-width: 56.25em){@content};  //900px/16px 
+    }
+    @if $breakpoint == tab-lands {
+     @media (max-width: 75em){@content};   //1200px/16px
+    }
+    @if $breakpoint == big-desktop {
+     @media (min-width: 112.5em){@content};   //1800px/16px
+    }
+}
+
